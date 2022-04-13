@@ -60,8 +60,8 @@ describe("Juego de TaTeTi", () => {
         });
     });
     describe("El primer jugador hace su primer movimiento", () => {
-        it("El casillero queda ocupado y le toca al otro jugador", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
+        it("El casillero queda ocupado y le toca al otro jugador", async () => {
+            await chai.request(server).put("/empezar").send(juego);
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[0])
@@ -75,14 +75,13 @@ describe("Juego de TaTeTi", () => {
                         [' ', ' ', ' '],
                         [' ', ' ', ' '],
                     ]);
-                    done()
                 })
         });
     });
     describe("El segundo jugador hace su primer movimiento", () => {
-        it("El casillero queda ocupado y le toca al otro jugador", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[0]).end();
+        it("El casillero queda ocupado y le toca al otro jugador",  async () => {
+            await chai.request(server).put("/empezar").send(juego);
+            await chai.request(server).put("/movimiento").send(movimientos[0]);
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[1])
@@ -96,18 +95,17 @@ describe("Juego de TaTeTi", () => {
                         [' ', ' ', ' '],
                         [' ', ' ', ' '],
                     ]);
-                    done()
                 });
         });
     });
     describe("El segundo jugador hace un movimiento fuera de su turno", () => {
-        it("El tablero no cambia y recibo el nombre del jugador al que le toca", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[0]).end();
-            chai.request(server).put("/movimiento").send(movimientos[1]).end();
+        it("El tablero no cambia y recibo el nombre del jugador al que le toca", async () => {
+            await chai.request(server).put("/empezar").send(juego);
+            await chai.request(server).put("/movimiento").send(movimientos[0]);
+            await chai.request(server).put("/movimiento").send(movimientos[1]);
             chai.request(server)
                 .put("/movimiento")
-                .send(movimientos[2])
+                .send(movimientos[4])
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.should.to.be.json;
@@ -118,15 +116,14 @@ describe("Juego de TaTeTi", () => {
                         [' ', ' ', ' '],
                         [' ', ' ', ' '],
                     ]);
-                    done()
                 });
         });
     });
     describe("El primer jugador hace un movimiento en una casilla ocupada", () => {
-        it("El tablero no cambia y recibo el nombre del jugador al que le toca", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[0]).end();
-            chai.request(server).put("/movimiento").send(movimientos[1]).end();
+        it("El tablero no cambia y recibo el nombre del jugador al que le toca", async () => {
+            await chai.request(server).put("/empezar").send(juego);
+            await chai.request(server).put("/movimiento").send(movimientos[0]);
+            await chai.request(server).put("/movimiento").send(movimientos[1]);
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[2])
@@ -140,18 +137,17 @@ describe("Juego de TaTeTi", () => {
                         [' ', ' ', ' '],
                         [' ', ' ', ' '],
                     ]);
-                    done()
                 });
         });
     });
     describe("Si hay 3 marcas iguales en una columna", () => {
-        it("Finaliza el juego y se da por ganador al jugador", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[0]).end();
-            chai.request(server).put("/movimiento").send(movimientos[1]).end();
-            chai.request(server).put("/movimiento").send(movimientos[2]).end();
-            chai.request(server).put("/movimiento").send(movimientos[3]).end();
-            chai.request(server).put("/movimiento").send(movimientos[4]).end();
+        it("Finaliza el juego y se da por ganador al jugador", async () => {
+            await chai.request(server).put("/empezar").send(juego) ;
+            await chai.request(server).put("/movimiento").send(movimientos[0]);
+            await chai.request(server).put("/movimiento").send(movimientos[1]);
+            await chai.request(server).put("/movimiento").send(movimientos[2]);
+            await chai.request(server).put("/movimiento").send(movimientos[3]);
+            await chai.request(server).put("/movimiento").send(movimientos[4]);
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[5])
@@ -166,18 +162,17 @@ describe("Juego de TaTeTi", () => {
                         ['x', 'o', ' '],
                         ['x', ' ', ' '],
                     ]);
-                    done()
                 });
         });
     });
     describe("Si hay 3 marcas iguales en una fila", () => {
-        it("Finaliza el juego y se da por ganador al jugador", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[6]).end();
-            chai.request(server).put("/movimiento").send(movimientos[7]).end();
-            chai.request(server).put("/movimiento").send(movimientos[8]).end();
-            chai.request(server).put("/movimiento").send(movimientos[9]).end();
-            chai.request(server).put("/movimiento").send(movimientos[10]).end();
+        it("Finaliza el juego y se da por ganador al jugador", async () => {
+            await chai.request(server).put("/empezar").send(juego) ;
+            await chai.request(server).put("/movimiento").send(movimientos[6]);
+            await chai.request(server).put("/movimiento").send(movimientos[7]);
+            await chai.request(server).put("/movimiento").send(movimientos[8]);
+            await chai.request(server).put("/movimiento").send(movimientos[9]);
+            await chai.request(server).put("/movimiento").send(movimientos[10]);
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[11])
@@ -192,21 +187,19 @@ describe("Juego de TaTeTi", () => {
                         ['o', 'o', 'o'],
                         [' ', ' ', 'x'],
                     ]);
-                    done()
                 });
         });
     });
     describe("Si hay 3 marcas iguales en una diagonal", () => {
-        it("Finaliza el juego y se da por ganador al jugador", (done) => {
-            chai.request(server).put("/empezar").send(juego).end();
-            chai.request(server).put("/movimiento").send(movimientos[6]).end();
-            chai.request(server).put("/movimiento").send(movimientos[7]).end();
-            chai.request(server).put("/movimiento").send(movimientos[12]).end();
-            chai.request(server).put("/movimiento").send(movimientos[13]).end();
-            chai.request(server).put("/movimiento").send(movimientos[10]).end();
+        it("Finaliza el juego y se da por ganador al jugador", async () => {
+            await chai.request(server).put("/empezar").send(juego) ;
+            await chai.request(server).put("/movimiento").send(movimientos[6]);
+            await chai.request(server).put("/movimiento").send(movimientos[7]);
+            await chai.request(server).put("/movimiento").send(movimientos[12]);
+            await chai.request(server).put("/movimiento").send(movimientos[13]);
             chai.request(server)
                 .put("/movimiento")
-                .send(movimientos[11])
+                .send(movimientos[10])
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.should.to.be.json;
@@ -215,10 +208,9 @@ describe("Juego de TaTeTi", () => {
                     res.body.should.have.property('ganador').eql('Juan');
                     res.body.should.have.property('tablero').eql([
                         ['x', ' ', ' '],
-                        ['o', 'x', 'o'],
+                        ['o', 'x', ' '],
                         [' ', 'o', 'x'],
                     ]);
-                    done()
                 });
         });
     });
