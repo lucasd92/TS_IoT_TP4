@@ -40,7 +40,10 @@ router.put('/movimiento', function (request, response) {
   }
   if(((tablero[0][0] === tablero[1][0]) && (tablero[1][0] === tablero[2][0]) && (tablero[1][0] !== ' ') ) ||
      ((tablero[0][1] === tablero[1][1]) && (tablero[1][1] === tablero[2][1]) && (tablero[1][1] !== ' ') ) ||
-     ((tablero[0][2] === tablero[1][2]) && (tablero[1][2] === tablero[2][2]) && (tablero[1][2] !== ' ') )
+     ((tablero[0][2] === tablero[1][2]) && (tablero[1][2] === tablero[2][2]) && (tablero[1][2] !== ' ') ) ||
+     ((tablero[0][0] === tablero[0][1]) && (tablero[0][1] === tablero[0][2]) && (tablero[0][1] !== ' ') ) ||
+     ((tablero[1][0] === tablero[1][1]) && (tablero[1][1] === tablero[1][2]) && (tablero[1][1] !== ' ') ) ||
+     ((tablero[2][0] === tablero[2][1]) && (tablero[2][1] === tablero[2][2]) && (tablero[2][1] !== ' ') )
   ){
     // Doy por finalizada la partida y declaro ganador
     turno = 2;
