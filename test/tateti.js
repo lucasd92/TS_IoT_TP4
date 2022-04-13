@@ -23,7 +23,7 @@ describe("Juego de TaTeTi", () => {
     let movimientos = [
         { jugador: 'Juan', columna: 0, fila: 0 },
         { jugador: 'Pedro', columna: 1, fila: 0 },
-        { jugador: 'Juan', columna: 1, fila: 1 },
+        { jugador: 'Juan', columna: 1, fila: 0 },
         { jugador: 'Pedro', columna: 1, fila: 1 },
         { jugador: 'Juan', columna: 0, fila: 2 },
     ]
