@@ -28,9 +28,12 @@ router.put('/empezar', function (request, response) {
 router.put('/movimiento', function (request, response) {
   const columna = request.body.columna;
   const fila = request.body.fila;
+  const jugador = request.body.jugador;
 
-  tablero[fila][columna] = marcas[turno];
-  turno = (turno + 1) % 2;
+  if(jugador === jugadores[turno]){
+    tablero[fila][columna] = marcas[turno];
+    turno = (turno + 1) % 2;
+  }
 
   response.setHeader('Content-Type', 'application/json');  
   response.send({turno: jugadores[turno], tablero: tablero});
