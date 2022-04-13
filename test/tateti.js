@@ -225,7 +225,7 @@ describe("Juego de TaTeTi", () => {
             await chai.request(server).put("/movimiento").send(movimientos[8]);
             await chai.request(server).put("/movimiento").send(movimientos[9]);
             await chai.request(server).put("/movimiento").send(movimientos[10]);
-            await chai.request(server).put("/movimiento").send(movimientos[12]);
+            await chai.request(server).put("/movimiento").send(movimientos[13]);
             await chai.request(server).put("/movimiento").send(movimientos[14]);
             await chai.request(server).put("/movimiento").send(movimientos[15]);
             chai.request(server)

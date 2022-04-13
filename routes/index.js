@@ -58,6 +58,10 @@ router.put('/movimiento', function (request, response) {
       // Doy por finalizada la partida y declaro ganador
       turno = 2;
       ganador = jugador;
+    }else if (!tablero[0].includes(' ') && !tablero[1].includes(' ') && !tablero[2].includes(' ')){
+      // Doy por finalizada la partida y declaro empate
+      turno = 2;
+      ganador = 'Empate';      
     }
   }
 
