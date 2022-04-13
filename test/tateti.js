@@ -6,18 +6,14 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-// - Cuando se inicia un juego nuevo le toca al primer jugador y el tablero esta vacio.
-// - Cuando el primer jugador hace su movimiento le toca al otro jugador y la casilla 
-// elegida por el primer jugardor esta ocupada.
-// - Cuando el segundo jugador hace su movimiento le toca de nuevo al primer jugador y 
-// las dos casillas elegidar por el primer y segundo jugador estan ocupadas con 
-// marcas diferentes
-// - Cuando un jugador marca tres casillas de la misma fila entonces gana
-// - Cuando un jugador marca tres casillas de la misma columna entonces gana
-// - Cuando un jugador marca tres casillas de las diagonales entonces gana
-// - Si un jugador mueve cuando no es su turno entonces se devuelve un error y el tablero
-// no cambia.
-// - Cuando no quedan casillas vacias y no hay un ganador entonces hay un empate.
+// inicia primer jugador con tablero vacío
+//cuando juega, se ocupa casilla y le toca al segundo
+//cuando juega el segundo, 2 casillas ocupadas con marcas diferentes y le toca al primero
+//Si juega fuera de su turno, el tablero no cambia
+// si hay 3 iguales en una columna,  gana el jugador correspondiente
+// si hay 3 iguales en una fila,  gana el jugador correspondiente
+// si hay 3 iguales en una diagonal, gana el jugador correspondiente
+// si se completan las 9 casillas y nadie gana, entonces es empate
 
 describe("Juego de TaTeTi", () => {    
     let juego = {
@@ -78,6 +74,28 @@ describe("Juego de TaTeTi", () => {
             chai.request(server)
                 .put("/movimiento")
                 .send(movimientos[1])
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.should.to.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('turno').eql('Juan');
+                    res.body.should.have.property('tablero').eql([
+                        ['x', 'o', ' '],
+                        [' ', ' ', ' '],
+                        [' ', ' ', ' '],
+                    ]);
+                    done()
+                });
+        });
+    });
+    describe("El segundo jugador hace un movimiento fuera de su turno", () => {
+        it("El tablero no cambia y recibo el nombre del jugador al que le toca", (done) => {
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos[0]).end();
+            chai.request(server).put("/movimiento").send(movimientos[1]).end();
+            chai.request(server)
+                .put("/movimiento")
+                .send(movimientos[3])
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.should.to.be.json;
