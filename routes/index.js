@@ -38,12 +38,18 @@ router.put('/movimiento', function (request, response) {
       turno = (turno + 1) % 2;
     }
   }
-  if(((tablero[0][0] === tablero[1][0]) && (tablero[1][0] === tablero[2][0]) && (tablero[1][0] !== ' ') ) ||
-     ((tablero[0][1] === tablero[1][1]) && (tablero[1][1] === tablero[2][1]) && (tablero[1][1] !== ' ') ) ||
-     ((tablero[0][2] === tablero[1][2]) && (tablero[1][2] === tablero[2][2]) && (tablero[1][2] !== ' ') ) ||
-     ((tablero[0][0] === tablero[0][1]) && (tablero[0][1] === tablero[0][2]) && (tablero[0][1] !== ' ') ) ||
-     ((tablero[1][0] === tablero[1][1]) && (tablero[1][1] === tablero[1][2]) && (tablero[1][1] !== ' ') ) ||
-     ((tablero[2][0] === tablero[2][1]) && (tablero[2][1] === tablero[2][2]) && (tablero[2][1] !== ' ') )
+  if(((tablero[0][0] === tablero[1][0]) && (tablero[1][0] === tablero[2][0]) && (tablero[1][0] === 'o') ) ||
+     ((tablero[0][1] === tablero[1][1]) && (tablero[1][1] === tablero[2][1]) && (tablero[1][1] === 'o') ) ||
+     ((tablero[0][2] === tablero[1][2]) && (tablero[1][2] === tablero[2][2]) && (tablero[1][2] === 'o') ) ||
+     ((tablero[0][0] === tablero[0][1]) && (tablero[0][1] === tablero[0][2]) && (tablero[0][1] === 'o') ) ||
+     ((tablero[1][0] === tablero[1][1]) && (tablero[1][1] === tablero[1][2]) && (tablero[1][1] === 'o') ) ||
+     ((tablero[2][0] === tablero[2][1]) && (tablero[2][1] === tablero[2][2]) && (tablero[2][1] === 'o') ) ||
+     ((tablero[0][0] === tablero[1][0]) && (tablero[1][0] === tablero[2][0]) && (tablero[1][0] === 'x') ) ||
+     ((tablero[0][1] === tablero[1][1]) && (tablero[1][1] === tablero[2][1]) && (tablero[1][1] === 'x') ) ||
+     ((tablero[0][2] === tablero[1][2]) && (tablero[1][2] === tablero[2][2]) && (tablero[1][2] === 'x') ) ||
+     ((tablero[0][0] === tablero[0][1]) && (tablero[0][1] === tablero[0][2]) && (tablero[0][1] === 'x') ) ||
+     ((tablero[1][0] === tablero[1][1]) && (tablero[1][1] === tablero[1][2]) && (tablero[1][1] === 'x') ) ||
+     ((tablero[2][0] === tablero[2][1]) && (tablero[2][1] === tablero[2][2]) && (tablero[2][1] === 'x') )
   ){
     // Doy por finalizada la partida y declaro ganador
     turno = 2;
