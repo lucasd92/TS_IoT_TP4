@@ -24,8 +24,9 @@ describe("Juego de TaTeTi", () => {
         { jugador: 'Juan', columna: 0, fila: 0 },
         { jugador: 'Pedro', columna: 1, fila: 0 },
         { jugador: 'Juan', columna: 1, fila: 0 },
-        { jugador: 'Pedro', columna: 1, fila: 1 },
         { jugador: 'Juan', columna: 0, fila: 2 },
+        { jugador: 'Pedro', columna: 1, fila: 1 },
+        { jugador: 'Juan', columna: 0, fila: 1 },
     ]
     describe("Se empieza un juego nuevo", () => {
         it("Todos los casilleros estan vacios y le toca mover al primer jugador", (done) => {
@@ -96,7 +97,7 @@ describe("Juego de TaTeTi", () => {
             chai.request(server).put("/movimiento").send(movimientos[1]).end();
             chai.request(server)
                 .put("/movimiento")
-                .send(movimientos[3])
+                .send(movimientos[2])
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.should.to.be.json;
@@ -128,6 +129,31 @@ describe("Juego de TaTeTi", () => {
                         ['x', 'o', ' '],
                         [' ', ' ', ' '],
                         [' ', ' ', ' '],
+                    ]);
+                    done()
+                });
+        });
+    });
+    describe("Si hay 3 marcas iguales en una columna", () => {
+        it("Finaliza el juego y se da por ganador al jugador", (done) => {
+            chai.request(server).put("/empezar").send(juego).end();
+            chai.request(server).put("/movimiento").send(movimientos[0]).end();
+            chai.request(server).put("/movimiento").send(movimientos[1]).end();
+            chai.request(server).put("/movimiento").send(movimientos[2]).end();
+            chai.request(server).put("/movimiento").send(movimientos[3]).end();
+            chai.request(server).put("/movimiento").send(movimientos[4]).end();
+            chai.request(server)
+                .put("/movimiento")
+                .send(movimientos[5])
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.should.to.be.json;
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('turno').eql('Finalizado');
+                    res.body.should.have.property('tablero').eql([
+                        ['x', 'o', ' '],
+                        ['x', 'o', ' '],
+                        ['x', ' ', ' '],
                     ]);
                     done()
                 });

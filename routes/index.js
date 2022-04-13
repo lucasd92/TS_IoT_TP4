@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 router.put('/empezar', function (request, response) {
   turno = 0;
   jugadores = request.body.jugadores;
+  jugadores.push('Finalizado');
   tablero = [
     [' ', ' ', ' '],
     [' ', ' ', ' '],
@@ -29,6 +30,7 @@ router.put('/movimiento', function (request, response) {
   const columna = request.body.columna;
   const fila = request.body.fila;
   const jugador = request.body.jugador;
+  var ganador = '';
 
   if(jugador === jugadores[turno]){
     if(tablero[fila][columna] === ' '){
@@ -38,7 +40,7 @@ router.put('/movimiento', function (request, response) {
   }
 
   response.setHeader('Content-Type', 'application/json');  
-  response.send({turno: jugadores[turno], tablero: tablero});
+  response.send({turno: jugadores[turno], tablero: tablero, ganador: ganador});
 });
 
 module.exports = router;
